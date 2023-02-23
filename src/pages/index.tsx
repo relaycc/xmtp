@@ -4,7 +4,6 @@ import {
   Conversation,
   useXmtp,
 } from "@relaycc/xmtp-hooks";
-import { uniqueConversationKey } from "@relaycc/xmtp-hooks/lib";
 import Image from "next/image";
 import { Signer } from "ethers";
 import { motion } from "framer-motion";
