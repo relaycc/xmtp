@@ -11,6 +11,9 @@ const nextConfig = {
     }
     return config;
   },
+  rewrites: async () => {
+    return [{ source: "/robot", destination: "/?robot=true" }];
+  },
 };
 
 module.exports = nextConfig;

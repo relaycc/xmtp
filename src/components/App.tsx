@@ -2,12 +2,13 @@ import { Xmtp } from "@/components/Xmtp";
 import { Auth } from "@/components/Auth";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { getNumberArray } from "@/lib/getNumberArray";
 import { useAuth } from "@/hooks/useAuth";
 import { create } from "zustand";
 import { useIsClient } from "@/hooks/useIsClient";
 import { RobotDemo } from "./RobotDemo";
+import { useRouter } from "next/router";
 
 const TWENTY = getNumberArray(20);
 
@@ -32,10 +33,24 @@ const AnimatedRow = styled(motion.div)`
 `;
 
 export const App = () => {
+  const showRobot = useRouter().query.robot === "true";
   const { isAuthed } = useAuth();
+  const isClient = useIsClient();
   const [activeApp, setActiveApp] = useState<"xmtp" | "auth" | "robot demo">(
-    "auth"
+    showRobot ? "robot demo" : "auth"
   );
+
+  useEffect(() => {
+    if (!isClient) {
+      return;
+    } else {
+      if (!showRobot) {
+        return;
+      } else {
+        setActiveApp("robot demo");
+      }
+    }
+  }, [isClient, showRobot]);
 
   // useEffect(() => {
   //   if (isAuthed) {
