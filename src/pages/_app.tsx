@@ -1,5 +1,6 @@
 import type { AppProps } from "next/app";
-import { StyledComponentsThemeProvider, Preflight } from "@/lib";
+import { ThemeProvider } from "@/components/ThemeProvider";
+import { GlobalStyles } from "@/components/GlobalStyles";
 import { configureChains, createClient, WagmiConfig } from "wagmi";
 import { mainnet, polygon, optimism, arbitrum } from "wagmi/chains";
 import { CoinbaseWalletConnector } from "wagmi/connectors/coinbaseWallet";
@@ -42,10 +43,10 @@ const wagmiClient = createClient({
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <WagmiConfig client={wagmiClient}>
-      <StyledComponentsThemeProvider>
-        <Preflight />
+      <ThemeProvider>
+        <GlobalStyles />
         <Component {...pageProps} />
-      </StyledComponentsThemeProvider>
+      </ThemeProvider>
     </WagmiConfig>
   );
 }
